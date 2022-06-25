@@ -1,35 +1,40 @@
 import "./styles.css";
 import React, { useState } from "react";
 
-const emojiDictionary = {
-  "😂": "Face with tears of joy",
-  "💕": "Friend love",
-  "❤️": "Real Heart",
-  "👌": "Nice",
-  "☺️": "Cute Smile",
-  "😉": "winkling face",
-  "😊": "Normal Smile",
-  "😊": "Sad",
-  "😒": "Unamused Face"
-};
-//name=prompt("Enter Your name");
-export default function App() {
-  const [meaning, setMeaning] = useState("");
-  function emojiHandler(event) {
-    var userInput = event.target.value;
-    var meaning = emojiDictionary[userInput];
+var shoppingList = ["Milk", "Eggs", "Bread", "Flowers"];
 
-    if (meaning === undefined) {
-      meaning = "we don't have this in our database";
+export default function App() {
+  const [object, setObject] = useState("");
+  function listItemClickHandler(item) {
+    console.log("clicked", item);
+    var obj = item;
+    setObject(obj);
+  }
+  function getBg(index) {
+    if (index % 2 === 0) {
+      return "white";
     }
-    setMeaning(meaning);
+    return "grey";
   }
   return (
     <div className="App">
-      <h1>Emoji Interpreter</h1>
-      <input onChange={emojiHandler} />
-      <h2>"😂 ❤️ 👌 💕 😊 😉 ☺️ 😒 "</h2>
-      <h2>{meaning}</h2>
+      <b>
+        <h1>My Shopping List </h1>
+        <ul type="square">
+          {shoppingList.map(function (item, index) {
+            return (
+              <li
+                key={item}
+                onClick={() => listItemClickHandler(item)}
+                style={{ background: getBg(index) }}
+              >
+                {item}
+              </li>
+            );
+          })}
+        </ul>
+        <h3>"Clicked Item is"{object}</h3>
+      </b>
     </div>
   );
 }
